@@ -4,18 +4,18 @@
 #' @param plot The ggplot on which you want to draw the bar
 #' @param groups A vector containing the number (from left to right) of the 2 groups you want to draw the bar between.
 #' @param text The text (must be a character string) you want on top of the bar. Defaults to "*".
-#' @param text_height
-#' @param size_bar
-#' @param color_bar
-#' @param size_text
-#' @param color_text
-#' @param font_face
-#' @param font_style
-#' @param line_type
+#' @param text_height By how much the text above the bar should be above it. Should be between 0 and 1. Defaults to 0.0275 which is optimal for stars, 0.04 is advised for text. 
+#' @param size_bar The size of the bar. Defaults to 1. 
+#' @param color_bar The color of the bar. Defaults to "black".
+#' @param size_text The size of the text above the bar. Defaults to 8.
+#' @param color_text The color of the text. Defaults to "black".
+#' @param font_face The face (italic, bold, ...) of the text. Defaults to 1 (=normal).
+#' @param font_style The font familty (times, arial, ...) of the text. Defaults to "Arial". 
+#' @param line_type The style (solid, otted, ...) of the bar. Defaults to "solid".
 #' @keywords ggplot 
 #' @export 
 #' @examples
-#' significavity_bar(my_plot, c(1, 3), "**")
+#' significavity_bar(plot = my_plot, group = c(1, 3), text = "**")
 
 
 significavity_bar <- function(plot, groups, text = "*", text_height = 0.0275, size_bar = 1, color_bar = "black", size_text = 8, color_text = "black", font_face = 1, font_style = "Arial", line_type = "solid"){
