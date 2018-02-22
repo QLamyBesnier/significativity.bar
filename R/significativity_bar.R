@@ -67,7 +67,6 @@ significavity_bar <- function(plot, groups, text = "*", text_height = 0.0275, si
   }
   
   
-  
   if (class(as.list.environment(plot$layers[[1]])$geom)[1] == "GeomPoint"){
     coords = ggplot_build(plot)$data[[1]]
     xcoords = c()
