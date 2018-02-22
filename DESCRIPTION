@@ -1,8 +1,8 @@
 Package: significativity.bar
-Title: Drawing significativity bars in ggplot
+Title: What the Package Does (one line, title case)
 Version: 1.0
 Authors@R: person("Quentin", "Lamy-Besnier", email = "quentin.lamybesnier@yahoo.fr", role = c("aut", "cre"))
-Description: Drawing significativity bars between in ggplot. Works with barplots and dotplots, and between 2 groups only.
+Description: Drawing significativity bars in ggplot.
 Depends: R (>= 3.4.3)
 License: What license is it under?
 Encoding: UTF-8
