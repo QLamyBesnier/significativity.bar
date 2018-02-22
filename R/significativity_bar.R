@@ -20,7 +20,7 @@
 
 significavity_bar <- function(plot, groups, text = "*", text_height = 0.0275, size_bar = 1, color_bar = "black", size_text = 8, color_text = "black", font_face = 1, font_style = "Arial", line_type = "solid"){
   
-  if (!require("ggplot2", character.only=T, quietly=T)) {
+  if (!require("ggplot2", character.only=T, quietly=T)){
     install.packages("ggplot2")
     library(ggplot2, character.only=T)
   }
@@ -37,9 +37,35 @@ significavity_bar <- function(plot, groups, text = "*", text_height = 0.0275, si
   if (!is.character(text)) {
     stop("Please input the text above the bar as character")
   }
+  if (!is.numeric(text_height) | length(text_height) > 1){
+    stop("Please input one numeric value for the text height")
+  }
+  if (!is.numeric(size_bar) | length(size_bar) > 1){
+    stop("Please input one numeric value for the bar size")
+  }
+  if (!is.character(color_bar)){
+    stop("Please input an existing R color, as a character, for the color of the bar")
+  }
+  if (!is.numeric(size_text) | length(size_text) > 1){
+    stop("Please input one numeric value for the text size")
+  }
+  if (!is.numeric(font_face) | length(font_face) > 1){
+    stop("Please input one numeric value for the font face")
+  }
+  if (!is.character(color_text)){
+    stop("Please input an existing R color, as a character, for the color of the text")
+  }
+  if (!is.character(font_style)){
+    stop("Please input an existing font family, as a character, for the color of the bar")
+  }
+  if (!is.character(line_type)){
+    stop("Please input an existing line style, as a character, for the color of the bar")
+  }
+ 
   if (text_height >=1){
     warning("text_height should be between 0 and 1, default value for * and around 0.04 for text are advised")
   }
+  
   
   
   if (class(as.list.environment(plot$layers[[1]])$geom)[1] == "GeomPoint"){
@@ -97,3 +123,4 @@ significavity_bar <- function(plot, groups, text = "*", text_height = 0.0275, si
     print(plot)
   }
 }
+
