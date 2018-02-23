@@ -1,5 +1,5 @@
 Package: significativity.bar
-Title: Drawing significativity bars in ggplot. 
+Title: Drawing significativity bars in ggplot
 Version: 0.1
 Authors@R: person("Quentin", "Lamy-Besnier", email = "quentin.lamybesnier@yahoo.fr", role = c("aut", "cre"))
 Description: Drawing significativity bars in ggplot. Works with barplots and dotplots, between 2 groups only.
