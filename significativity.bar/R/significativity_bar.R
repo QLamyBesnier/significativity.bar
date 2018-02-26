@@ -15,7 +15,7 @@
 #' @keywords ggplot 
 #' @export 
 #' @examples
-#' significavity_bar(plot = my_plot, group = c(1, 3), text = "**")
+#' significativity_bar(plot = my_plot, group = c(1, 3), text = "**")
 
 
 significativity_bar <- function(plot, groups, text = "*", text_height = 0.0275, size_bar = 1, color_bar = "black", size_text = 8, color_text = "black", font_face = 1, font_style = "Arial", line_type = "solid"){
@@ -80,7 +80,7 @@ significativity_bar <- function(plot, groups, text = "*", text_height = 0.0275, 
       ycoords = append(ycoords, ycoord_temp)
     }
     
-    y_range = ggplot_build(p)$layout$panel_ranges[[1]]$y.range
+    y_range = ggplot_build(plot)$layout$panel_ranges[[1]]$y.range
     y_sum = sum(abs(y_range))
     y_scale = (7.5/100)*y_sum 
     bar_height = y_scale + ((5/100)*y_sum) 
