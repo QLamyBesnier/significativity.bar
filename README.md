@@ -1,4 +1,4 @@
-# significativity.bar
+# Significativity Bar
 
 R package for drawing significativity bars in ggplot. 
 
