@@ -1,23 +1,24 @@
-##### arguments : #####
+#' Significativity bar between 2 groups
+#'
+#' This function allows you to automatically draw a significativity bar between 2 groups in a ggplot
+#' @param plot The ggplot on which you want to draw the bar
+#' @param groups A vector containing the number (from left to right) of the 2 groups you want to draw the bar between.
+#' @param text The text (must be a character string) you want on top of the bar. Defaults to "*".
+#' @param text_height By how much the text above the bar should be above it. Should be between 0 and 1. Defaults to 0.0275 which is optimal for stars, 0.04 is advised for text. 
+#' @param size_bar The size of the bar. Defaults to 1. 
+#' @param color_bar The color of the bar. Defaults to "black".
+#' @param size_text The size of the text above the bar. Defaults to 8.
+#' @param color_text The color of the text. Defaults to "black".
+#' @param font_face The face (italic, bold, ...) of the text. Defaults to 1 (=normal).
+#' @param font_style The font familty (times, arial, ...) of the text. Defaults to "Arial". 
+#' @param line_type The style (solid, otted, ...) of the bar. Defaults to "solid".
+#' @keywords ggplot 
+#' @export 
+#' @examples
+#' significativity_bar(plot = my_plot, group = c(1, 3), text = "**")
 
-# REQUIRED ARGUMENTS
-# (1) the plot -> must be a ggplot
-# (2) the groups between which the significance bar is going to be added -> must be a vector with 2 numbers/names, from left to right (for now)
-# could be by number (starting from 1 from left to right) but probably better if it's by name ?
-# (3) characters/stars to be written on top of the bar
 
-# FALCULTATIVE / COSMETIC ARGUMENTS
-# (4) Comestic arguments for the bar (color, size, style) 
-# (5) Comestic arguments for the text (idem)
-
-##### structure : #####
-# check installation of packages
-# check if everything user entered is OK
-# check what type of plot it is 
-# do the corresponding bar for the plot
-
-
-significavity_bar <- function(plot, groups, text = "*", text_height = 0.0275, size_bar = 1, color_bar = "black", size_text = 8, color_text = "black", font_face = 1, font_style = "Arial", line_type = "solid"){
+significativity_bar <- function(plot, groups, text = "*", text_height = 0.0275, size_bar = 1, color_bar = "black", size_text = 8, color_text = "black", font_face = 1, font_style = "Arial", line_type = "solid"){
   
   if (!require("ggplot2", character.only=T, quietly=T)){
     install.packages("ggplot2")
@@ -60,7 +61,7 @@ significavity_bar <- function(plot, groups, text = "*", text_height = 0.0275, si
   if (!is.character(line_type)){
     stop("Please input an existing line style, as a character, for the color of the bar")
   }
-  
+ 
   if (text_height >=1){
     warning("text_height should be between 0 and 1, default value for * and around 0.04 for text are advised")
   }
@@ -79,7 +80,7 @@ significavity_bar <- function(plot, groups, text = "*", text_height = 0.0275, si
       ycoords = append(ycoords, ycoord_temp)
     }
     
-    y_range = ggplot_build(p)$layout$panel_ranges[[1]]$y.range
+    y_range = ggplot_build(plot)$layout$panel_ranges[[1]]$y.range
     y_sum = sum(abs(y_range))
     y_scale = (7.5/100)*y_sum 
     bar_height = y_scale + ((5/100)*y_sum) 
@@ -122,11 +123,3 @@ significavity_bar <- function(plot, groups, text = "*", text_height = 0.0275, si
   }
 }
 
-
-
-# might be problem with polices (worst case : goes back to default with a warning so prolly OK)
-# annotate
-# write help
-
-
-# https://stackoverflow.com/questions/5595512/what-is-the-difference-between-require-and-library
