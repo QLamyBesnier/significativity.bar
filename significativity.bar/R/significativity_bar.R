@@ -18,7 +18,7 @@
 #' significavity_bar(plot = my_plot, group = c(1, 3), text = "**")
 
 
-significavity_bar <- function(plot, groups, text = "*", text_height = 0.0275, size_bar = 1, color_bar = "black", size_text = 8, color_text = "black", font_face = 1, font_style = "Arial", line_type = "solid"){
+significativity_bar <- function(plot, groups, text = "*", text_height = 0.0275, size_bar = 1, color_bar = "black", size_text = 8, color_text = "black", font_face = 1, font_style = "Arial", line_type = "solid"){
   
   if (!require("ggplot2", character.only=T, quietly=T)){
     install.packages("ggplot2")
