@@ -18,7 +18,7 @@ library(significativity.bar)
 
 # Example
 
-This code provide an example of utilisation how the package to draw a significativity bar in a dotplot :
+This code provide an example of utilisation of the package to draw a significativity bar in a dotplot :
 
 ```r
 install.packages("ggplot2")
