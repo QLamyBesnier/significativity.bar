@@ -4,6 +4,8 @@ R package for drawing significativity bars in ggplot.
 
 Works for dotplots and barplots.
 
+For more details on the function, feel free to use the R manual with the command `?significativity_bar` once the package is installed.
+
 # Installation
 
 This code installs the significativity.bar package from this depository :
