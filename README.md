@@ -29,5 +29,5 @@ library(ggplot2)
 my_ggplot <- ggplot(data = ToothGrowth[,-2], aes(x = dose, y = len)) + geom_point(color = "lightblue")
 my_ggplot
 
-my_ggplot_with_bar <- significativity_bar(plot = my_ggplot, groups = c(1,3), text = "**")
+my_ggplot_with_bar <- significativity_bar(plot = my_ggplot, groups = c(1,2), text = "**")
 ```
