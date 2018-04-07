@@ -20,7 +20,7 @@
 
 significativity_bar <- function(plot, groups, text = "*", text_height = 0.0275, size_bar = 1, color_bar = "black", size_text = 8, color_text = "black", font_face = 1, font_style = "Arial", line_type = "solid"){
   
-  if (!require("ggplot2", character.only=T, quietly=T)){
+  if (!require("ggplot2", character.only=T, quietly=T)){ # use library ggplot
     install.packages("ggplot2")
     library(ggplot2, character.only=T)
   }
@@ -67,58 +67,58 @@ significativity_bar <- function(plot, groups, text = "*", text_height = 0.0275, 
   }
   
   
-  if (class(as.list.environment(plot$layers[[1]])$geom)[1] == "GeomPoint"){
-    coords = ggplot_build(plot)$data[[1]]
+  if (class(as.list.environment(plot$layers[[1]])$geom)[1] == "GeomPoint"){ # if the ggplot is a dotplot
+    coords = ggplot_build(plot)$data[[1]] # get the coordinates of the points
     xcoords = c()
     ycoords = c()
-    for (i in groups){
+    for (i in groups){ # get the x coordinates of all coordinates in a vector, for the 2 selected groups
       xcoord_temp = unique(coords$x)[i]
       xcoords = append(xcoords, xcoord_temp)
     }
     for (i in c(1,2)){
-      ycoord_temp = max(coords[coords$x == xcoords[i],]$y)
+      ycoord_temp = max(coords[coords$x == xcoords[i],]$y) # get the y coordinate of the upper point of each group
       ycoords = append(ycoords, ycoord_temp)
     }
     
-    y_range = ggplot_build(plot)$layout$panel_ranges[[1]]$y.range
-    y_sum = sum(abs(y_range))
-    y_scale = (7.5/100)*y_sum 
-    bar_height = y_scale + ((5/100)*y_sum) 
+    y_range = ggplot_build(plot)$layout$panel_ranges[[1]]$y.range # get the total height of the y scale
+    y_sum = sum(abs(y_range)) 
+    y_scale = (7.5/100)*y_sum # starting position of the vertical bar (determined % of the total y scale)
+    bar_height = y_scale + ((5/100)*y_sum) # final position of the vertical bar (determined % of the total y scale in addition to y_scale)
     
-    ycoord_top = max(ycoords) 
-    coord_bar = data.frame(x = c(xcoords[1], xcoords[1], xcoords[2], xcoords[2]), y = c(ycoord_top + y_scale, ycoord_top + bar_height, ycoord_top + bar_height, ycoord_top + y_scale))
+    ycoord_top = max(ycoords) # the bar should take the heighest of the two groups as a reference
+    coord_bar = data.frame(x = c(xcoords[1], xcoords[1], xcoords[2], xcoords[2]), y = c(ycoord_top + y_scale, ycoord_top + bar_height, ycoord_top + bar_height, ycoord_top + y_scale)) # final coordinates of the bar
     
-    star_x = mean(xcoords)
-    star_y = ycoord_top + bar_height + ((2.75/100)*y_sum)
-    coord_star = c(star_x, star_y)
+    star_x = mean(xcoords) # x coordinate of the text above the bar (in the middle of the two groups)
+    star_y = ycoord_top + bar_height + ((2.75/100)*y_sum) # y coordinate of the text above the bar (above the bar by a determined factor)
+    coord_star = c(star_x, star_y) # x,y coordinates of the text above the bar
     
-    plot = plot + geom_path(data = coord_bar, aes(x=x, y=y), size = 1) + annotate("text", x = star_x, y = star_y, label = text, size = 8)
+    plot = plot + geom_path(data = coord_bar, aes(x=x, y=y), size = size_bar, color = color_bar, linetype = line_type) + annotate("text", x = star_x, y = star_y, label = text, size = size_text, color = color_text, fontface = font_face, family = font_style) # create the new ggplot
     print(plot)
     
-  } else if (class(as.list.environment(plot$layers[[1]])$geom)[1] == "GeomBar") {
+  } else if (class(as.list.environment(plot$layers[[1]])$geom)[1] == "GeomBar") { # if the ggplot is a dotplot
     coords = ggplot_build(plot)$data[[1]]
     xcoords = c()  
     ycoords = c()
-    for (i in groups){                                      
+    for (i in groups){ # get the x and y coordinates of the two groups                                      
       xcoord_temp = mean(c(coords[i,]$xmin, coords[i,]$xmax))
       xcoords = append(xcoords, xcoord_temp)
       ycoord_temp = coords[i,6]
       ycoords = append(ycoords, ycoord_temp)
     }
     
-    y_range = ggplot_build(plot)$layout$panel_ranges[[1]]$y.range
+    y_range = ggplot_build(plot)$layout$panel_ranges[[1]]$y.range # get the total height of the y scale
     y_sum = sum(abs(y_range))
-    y_scale = (7.5/100)*y_sum 
-    bar_height = y_scale + ((5/100)*y_sum) 
+    y_scale = (7.5/100)*y_sum  # starting position of the vertical bar (determined % of the total y scale)
+    bar_height = y_scale + ((5/100)*y_sum) # final position of the vertical bar (determined % of the total y scale in addition to y_scale)
     
-    ycoord_top = max(ycoords) 
-    coord_bar = data.frame(x = c(xcoords[1], xcoords[1], xcoords[2], xcoords[2]), y = c(ycoord_top + y_scale, ycoord_top + bar_height, ycoord_top + bar_height, ycoord_top + y_scale))
+    ycoord_top = max(ycoords) # the bar should take the heighest of the two groups as a reference
+    coord_bar = data.frame(x = c(xcoords[1], xcoords[1], xcoords[2], xcoords[2]), y = c(ycoord_top + y_scale, ycoord_top + bar_height, ycoord_top + bar_height, ycoord_top + y_scale)) #  final coordinates of the bar
     
-    star_x = mean(xcoords)
-    star_y = ycoord_top + bar_height + (text_height*y_sum)
-    coord_star = c(star_x, star_y)
+    star_x = mean(xcoords) # x coordinate of the text above the bar (in the middle of the two groups)
+    star_y = ycoord_top + bar_height + (text_height*y_sum) # y coordinate of the text above the bar (above the bar by a determined factor)
+    coord_star = c(star_x, star_y) # x,y coordinates of the text above the bar
     
-    plot = plot + geom_path(data = coord_bar, aes(x=x, y=y), size = size_bar, color = color_bar, linetype = line_type) + annotate("text", x = star_x, y = star_y, label = text, size = size_text, color = color_text, fontface = font_face, family = font_style)
+    plot = plot + geom_path(data = coord_bar, aes(x=x, y=y), size = size_bar, color = color_bar, linetype = line_type) + annotate("text", x = star_x, y = star_y, label = text, size = size_text, color = color_text, fontface = font_face, family = font_style) # create the new ggplot
     print(plot)
   }
 }
